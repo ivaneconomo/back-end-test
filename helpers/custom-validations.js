@@ -1,6 +1,6 @@
-const User = require('../models/user.model');
+const User = require('../models/user-model');
 
-const emailValidation = async (email) => {
+const isEmailInUse = async (email) => {
   const isExists = await User.findOne({ email });
 
   if (isExists) {
@@ -10,5 +10,5 @@ const emailValidation = async (email) => {
 };
 
 module.exports = {
-  emailValidation,
+  isEmailInUse,
 };

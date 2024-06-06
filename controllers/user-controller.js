@@ -5,7 +5,7 @@ const {
   replaceUserService,
   editUserService,
   deleteUserService,
-} = require('../services/user.service');
+} = require('../services/user-services');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 

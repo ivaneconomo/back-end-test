@@ -1,11 +1,11 @@
 require('dotenv/config');
 const express = require('express');
 const app = express();
-require('../dataBase/dbConnection');
+require('../dataBase/db-connection');
 const morgan = require('morgan');
 const cors = require('cors');
-const userRoutes = require('../routes/user.route');
-const loginRoute = require('../routes/login.route');
+const userRoutes = require('../routes/user-route');
+const loginRoute = require('../routes/login-route');
 const port = process.env.PORT;
 
 app.use(express.json());

@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const { body } = require('express-validator');
 const {
   getAllUsers,
   getUserById,
@@ -8,9 +7,12 @@ const {
   editUser,
   disableUser,
   deleteUser,
-} = require('../controllers/user.controller');
-const { emailValidation } = require('../helpers/validations');
-const { jwtValidator } = require('../middlewares/jwtValidation');
+} = require('../controllers/user-controller');
+const { jwtValidator } = require('../middlewares/jwt-validation');
+const {
+  userRegistrationValidation,
+} = require('../middlewares/form-validations');
+const { validateFields } = require('../middlewares/validation-middleware');
 
 const route = Router();
 
@@ -20,16 +22,8 @@ route.get('/get-user-by-id/:id', getUserById);
 
 route.post(
   '/create-user',
-  body('email')
-    .isEmail()
-    .withMessage('Formato e-mail inválido.')
-    .notEmpty()
-    .custom(emailValidation),
-  body('password')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/
-    )
-    .withMessage('La contraseña no cumple los requisitos.'),
+  userRegistrationValidation,
+  validateFields,
   createUser
 );
 
