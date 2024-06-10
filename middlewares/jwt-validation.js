@@ -1,11 +1,16 @@
 const jwt = require('jsonwebtoken');
 
-const jwtValidator = async (req, res, next) => {
+const jwtValidation = async (req, res, next) => {
   try {
-    const token = req.headers['access-token'];
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
     if (!token) return res.status(401).json('Token inexistente.');
-    jwt.verify(token, process.env.SECRET, (error) => {
+
+    jwt.verify(token, process.env.SECRET, (error, decoded) => {
       if (error) return res.status(401).json('Token inválido.');
+
+      req.user = decoded;
       next();
     });
 
@@ -19,4 +24,4 @@ const jwtValidator = async (req, res, next) => {
   }
 };
 
-module.exports = { jwtValidator };
+module.exports = { jwtValidation };

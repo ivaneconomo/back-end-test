@@ -7,12 +7,15 @@ const login = async (req, res) => {
 
   try {
     const findUser = await User.findOne({ email });
+
     if (!findUser) {
       return res
         .status(401)
         .json({ message: 'Email o contraseña incorrectos.' });
     }
+
     const match = bcrypt.compareSync(password, findUser.password);
+
     if (match) {
       const payload = {
         id: findUser._id,

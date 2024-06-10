@@ -8,7 +8,7 @@ const {
   disableUser,
   deleteUser,
 } = require('../controllers/user-controller');
-const { jwtValidator } = require('../middlewares/jwt-validation');
+const { jwtValidation } = require('../middlewares/jwt-validation');
 const {
   userRegistrationValidation,
 } = require('../middlewares/form-validations');
@@ -16,7 +16,7 @@ const { validateFields } = require('../middlewares/validation-middleware');
 
 const route = Router();
 
-route.get('/get-users', jwtValidator, getAllUsers);
+route.get('/get-users', jwtValidation, getAllUsers);
 
 route.get('/get-user-by-id/:id', getUserById);
 
