@@ -13,8 +13,6 @@ const jwtValidation = async (req, res, next) => {
       req.user = decoded;
       next();
     });
-
-    console.log(token);
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).json({
